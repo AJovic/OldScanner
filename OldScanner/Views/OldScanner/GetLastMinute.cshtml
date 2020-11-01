@@ -1,0 +1,87 @@
+﻿@model IEnumerable<OldScanner.Models.LastMinute>
+
+@{
+    ViewData["Title"] = "GetLastMinute";
+}
+
+<h1>GetLastMinute</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Event)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubEvent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.One)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.X)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Two)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Over)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Under)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NG)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubEvent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.One)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.X)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Two)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Over)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Under)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NG)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

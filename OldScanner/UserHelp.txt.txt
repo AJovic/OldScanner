@@ -1,0 +1,4 @@
+Potrebni paketi 
+1. Selenium.WebDriver
+2. Selenium.WebDriver.ChromeDriver
+
