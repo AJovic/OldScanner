@@ -55,7 +55,7 @@ namespace OldScanner.Controllers
                 lastMinutesList.Add(lastMinute);
             }
 
-            _driver.Close();
+            _driver.Quit();
 
             return View(lastMinutesList);
         }
