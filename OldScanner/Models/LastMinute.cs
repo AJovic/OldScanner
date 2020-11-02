@@ -7,6 +7,7 @@ namespace OldScanner.Models
 {
     public class LastMinute
     {
+        public int Id { get; set; }
         public string Data { get; set; }
         public string Time { get; set; }
         public string Event { get; set; }

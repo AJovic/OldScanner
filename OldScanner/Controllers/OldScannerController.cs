@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc;
-using OldScanner.Config;
 using OldScanner.Models;
+using OldScanner.Services;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -13,18 +13,23 @@ namespace OldScanner.Controllers
     public class OldScannerController : Controller
     {
         private string url = "https://www.planetwin365.it/it/scommesse";
-        private ChromeDriver _driver;
 
-        public OldScannerController()
+        private IBrowserDriverRepository _browserDriverRepository;
+        private ChromeDriver _chromeDriver;
+
+        ILastMinuteRepository _lastMinuteRepository;
+        public OldScannerController(IBrowserDriverRepository browserDriverRepository, ILastMinuteRepository lastMinuteRepository)
         {
-            _driver = BrowserDriver.GetChromeDriver();
-            _driver.Navigate().GoToUrl(url);
+            _browserDriverRepository = browserDriverRepository;
+            _chromeDriver = browserDriverRepository.GetChromeDriver();
+            _chromeDriver.Navigate().GoToUrl(url);
+            _lastMinuteRepository = lastMinuteRepository;
         }
 
         public IActionResult GetLastMinute()
         {
 
-            IWebElement rootItem = _driver.FindElementByCssSelector("#NESportCnt > div.itemSport > div.items");
+            IWebElement rootItem = _chromeDriver.FindElementByCssSelector("#NESportCnt > div.itemSport > div.items");
             ReadOnlyCollection<IWebElement> childItems = rootItem.FindElements(By.ClassName("col7"));
 
             List<LastMinute> lastMinutesList = new List<LastMinute>();
@@ -53,9 +58,11 @@ namespace OldScanner.Controllers
                 lastMinute.NG = odsItems[7].Text;
 
                 lastMinutesList.Add(lastMinute);
+
+                _lastMinuteRepository.AddLastMinute(lastMinute);
             }
 
-            _driver.Quit();
+            _chromeDriver.Quit();
 
             return View(lastMinutesList);
         }

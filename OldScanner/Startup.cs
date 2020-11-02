@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OldScanner.Data;
+using OldScanner.Services;
 
 namespace OldScanner
 {
@@ -24,6 +27,10 @@ namespace OldScanner
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IBrowserDriverRepository, BrowserDriverRepository>();
+            services.AddScoped<ILastMinuteRepository, LastMinuteRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
